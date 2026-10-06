@@ -22,3 +22,7 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+
+  grpc:
+    server:
+      port: 9090
