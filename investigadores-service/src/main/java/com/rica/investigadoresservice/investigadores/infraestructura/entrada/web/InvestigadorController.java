@@ -32,6 +32,13 @@ public class InvestigadorController {
         return InvestigadorMapper.aResponse(investigador);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        investigadorService.iniciarEliminacion(id);
+        // 202: la eliminación es asíncrona (Saga); aún no ha terminado.
+        return ResponseEntity.accepted().build();
+    }
+
     @PostMapping
     public ResponseEntity<InvestigadorResponse> registrar(@Valid @RequestBody InvestigadorRequest request) {
         Investigador guardado = investigadorService.registrar(

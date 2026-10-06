@@ -1,0 +1,16 @@
+meta {
+  name: Eliminar investigador
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{investigadoresUrl}}/api/investigadores/4
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  forwardAuthorizationHeader: false
+}

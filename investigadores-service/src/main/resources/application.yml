@@ -29,6 +29,9 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:9092
+    consumer:
+      group-id: investigadores-service
+      auto-offset-reset: earliest
 
 eureka:
   instance:
