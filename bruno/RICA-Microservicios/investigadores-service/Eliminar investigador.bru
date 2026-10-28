@@ -4,7 +4,7 @@ meta {
   seq: 4
 }
 
-get {
+delete {
   url: {{investigadoresUrl}}/api/investigadores/4
   body: none
   auth: inherit
@@ -12,5 +12,6 @@ get {
 
 settings {
   encodeUrl: true
+  timeout: 0
   forwardAuthorizationHeader: false
 }
