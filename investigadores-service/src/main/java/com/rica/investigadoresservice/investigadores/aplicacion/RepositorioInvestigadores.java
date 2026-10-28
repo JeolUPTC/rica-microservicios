@@ -13,5 +13,9 @@ public interface RepositorioInvestigadores {
 
     boolean existeCorreo(String correoInstitucional);
 
+    Optional<Investigador> buscarPorCorreo(String correoInstitucional);
+
     Investigador guardar(Investigador investigador);
+
+    void eliminar(Investigador investigador);
 }
