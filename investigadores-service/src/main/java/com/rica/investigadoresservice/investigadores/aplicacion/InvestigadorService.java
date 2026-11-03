@@ -2,6 +2,8 @@ package com.rica.investigadoresservice.investigadores.aplicacion;
 
 import com.rica.investigadoresservice.compartido.RecursoNoEncontradoException;
 import com.rica.investigadoresservice.investigadores.dominio.Investigador;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,8 @@ import java.util.Map;
 
 @Service
 public class InvestigadorService implements InvestigadorUseCase {
+
+    private static final Logger log = LoggerFactory.getLogger(InvestigadorService.class);
 
     private final RepositorioInvestigadores repositorioInvestigadores;
     private final InvestigadorFactory investigadorFactory;
@@ -67,6 +71,7 @@ public class InvestigadorService implements InvestigadorUseCase {
                 "investigadores.en-eliminacion",
                 correo,
                 Map.of("correoInstitucional", correo));
+        log.info("Saga: eliminación iniciada para {}", correo);
     }
 
     @Override
@@ -76,6 +81,7 @@ public class InvestigadorService implements InvestigadorUseCase {
                 .filter(Investigador::estaEnEliminacion)
                 .ifPresent(investigador -> {
                     repositorioInvestigadores.eliminar(investigador);
+                    log.info("Saga: investigador {} eliminado", correoInstitucional);
                     // Los consumidores (p. ej. consultas-service) se enteran de que ya no existe.
                     publicadorEventos.publicar(
                             "investigadores.eliminados",
